@@ -1,22 +1,31 @@
+import org.apache.ibatis.exceptions.ExceptionFactory;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class Main {
+import java.io.InputStream;
+import java.util.List;
 
-    public static void main(String[] args) {
+public class CadDao {
+    static String resource = "mybatis-config.xml";
+    static InputStream inputStream = null;
+    static SqlSession session = null;
 
-        CadDao dao = new CadDao();
-        dao.create();
-        dao.readOne();
-        dao.readAll();
-        dao.update();
-        dao.delete();
+    CadDao() {
+        try {
+            inputStream = Resources.getResourceAsStream(resource);
+            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+            session = sqlSessionFactory.openSession();
+
+        } catch (Exception e) {
+            throw ExceptionFactory.wrapException("Error committing transaction.  Cause: " + e, e);
+        }
     }
-}
+    protected void create() {
+        try {
 
-
-    private void create(){
-        try{
-
-            Cat cat = new Cat("persian","female", 3);  //Create a new Cat object
+            Cat cat = new Cat("persian", "female", 3);  //Create a new Cat object
             session.insert("Cat.create", cat);                     //Insert Cat data
             System.out.println("Record inserted successfully");
             session.commit();
@@ -27,29 +36,30 @@ public class Main {
         }
     }
 
-    private void readOne(){
+    protected void readOne() {
         //Select a particular cat  by  id
         Cat cat = (Cat) session.selectOne("Cat.getById", 2);
         System.out.println(cat);
     }
 
 
-    private void readAll(){
+    protected void readAll() {
 
         //Select all cats
         List<Cat> cat = session.selectList("Cat.getAll");
-        for(Cat theCat : cat ){
+        for (Cat theCat : cat) {
             System.out.println(theCat);
         }
+
         System.out.println("Records Read Successfully ");
         session.commit();
         session.close();
     }
 
-    private void update(){
+    protected void update() {
         //Select a particular cat using id
         Cat cat = (Cat) session.selectOne("Cat.getById", 1);
-        System.out.println("Current details of the cat are" );
+        System.out.println("Current details of the cat are");
         System.out.println(cat.toString());
 
         //Set new values to the breed, sex and age for the cat
@@ -58,20 +68,20 @@ public class Main {
         cat.setAge(3);
 
         //Update the cat record
-        session.update("Cat.update",cat);
+        session.update("Cat.update", cat);
         System.out.println("Record updated successfully");
         session.commit();
         session.close();
 
         //Verifying the record
         cat = (Cat) session.selectOne("Cat.getById", 1);
-        System.out.println("Details of the cat after update operation" );
+        System.out.println("Details of the cat after update operation");
         System.out.println(cat.toString());
         session.commit();
         session.close();
     }
 
-    private void delete(){
+    protected void delete() {
         //Delete operation
         session.delete("Cat.deleteById", 2);
         session.commit();
