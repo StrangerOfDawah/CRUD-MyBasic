@@ -56,6 +56,7 @@ public class Main {
 
 
     private void readAll(){
+
         //Select all cats
         List<Cat> cat = session.selectList("Cat.getAll");
         for(Cat theCat : cat ){
