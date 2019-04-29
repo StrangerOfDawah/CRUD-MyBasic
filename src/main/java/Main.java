@@ -14,7 +14,6 @@ public class Main {
     static SqlSession session = null;
     Main() {
         try {
-
             inputStream = Resources.getResourceAsStream(resource);
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
             session = sqlSessionFactory.openSession();
