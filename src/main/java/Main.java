@@ -61,7 +61,6 @@ public class Main {
         for(Cat theCat : cat ){
             System.out.println(theCat);
         }
-
         System.out.println("Records Read Successfully ");
         session.commit();
         session.close();
