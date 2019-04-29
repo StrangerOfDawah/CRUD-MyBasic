@@ -37,8 +37,8 @@ public class Main {
     private void create(){
         try{
 
-            Cat cat = new Cat("persian","female", 3);   //Create a new Cat object
-            session.insert("Cat.create", cat);                      //Insert Cat data
+            Cat cat = new Cat("persian","female", 3);  //Create a new Cat object
+            session.insert("Cat.create", cat);                     //Insert Cat data
             System.out.println("Record inserted successfully");
             session.commit();
             session.close();
