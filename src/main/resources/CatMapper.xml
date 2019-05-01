@@ -2,41 +2,41 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Cat">
+<mapper namespace="mappers.CatMapper">
 
                                         <!--INSERT-->
 
-    <insert id="insert" parameterType="Cat">
+    <insert id="insertCat" parameterType="domain.Cat" useGeneratedKeys='true' keyColumn="id" keyProperty='id'>
         INSERT INTO "Cat" (breed,sex,age) VALUES (#{breed}, #{sex}, #{age})
      </insert>
 
                                         <!--UPDATE-->
 
-    <update id = "update" parameterType = "Cat">
+    <update id = "updateCat" parameterType = "domain.Cat">
         UPDATE "Cat" SET breed = #{breed}, sex = #{sex}, age = #{age} WHERE id = #{id};
     </update>
 
                                         <!--DELETE-->
 
-    <delete id = "deleteById" parameterType = "int">
+    <delete id = "deleteCat" parameterType = "int">
         DELETE from "Cat" WHERE id = #{id};
     </delete>
 
-                                    <!--SELECTALL-->
+                                        <!--SELECTALL-->
 
-    <resultMap id = "result" type = "Cat">
+    <resultMap id = "CatResult" type = "domain.Cat">
         <result property = "breed" column = "breed"/>
         <result property = "sex" column = "sex"/>
         <result property = "age" column = "age"/>
     </resultMap>
 
-    <select id = "getAll" resultMap = "result">
+    <select id = "getAll" resultMap = "CatResult">
         SELECT * FROM "Cat";
     </select>
 
-                                    <!--SELECT-->
+                                     <!--SELECT-->
 
-    <select id = "getById" parameterType = "int" resultMap = "result">
+    <select id = "getCatById" parameterType = "int" resultType= "domain.Cat">
         SELECT * FROM "Cat" WHERE id = #{id};
     </select>
 

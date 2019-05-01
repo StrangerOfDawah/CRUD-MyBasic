@@ -1,18 +1,11 @@
+package domain;
+
 public class Cat {
     private int id;
     private String breed;
     private String sex;
     private int age;
 
-    public Cat() {
-    }
-
-    public Cat(String breed, String sex, int age) {
-        super();
-        this.breed = breed;
-        this.sex = sex;
-        this.age = age;
-    }
 
     public int getId() {
         return id;
@@ -49,9 +42,9 @@ public class Cat {
     @Override
     public String toString() {
         return "InfoOfCats: \n" +
-                "Cat's Id: "    + getId()    + "\n" +
-                "Cat's breed: " + getBreed() + "\n" +
-                "Cat's sex: "   + getSex()   + "\n" +
-                "Cat's age: "   + getAge();
+                "domain.Cat's Id: "    + getId()    + "\n" +
+                "domain.Cat's breed: " + getBreed() + "\n" +
+                "domain.Cat's sex: "   + getSex()   + "\n" +
+                "domain.Cat's age: "   + getAge();
     }
 }
