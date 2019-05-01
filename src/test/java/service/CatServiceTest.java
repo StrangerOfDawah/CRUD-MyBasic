@@ -44,7 +44,6 @@ public class CatServiceTest {
         cat.setSex("female");
         cat.setAge(1);
 
-
         catService.insertCat(cat);
         assertTrue(cat.getId()!= 0);
         Cat createdCat = catService.getCatById(cat.getId());
